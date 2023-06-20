@@ -193,11 +193,32 @@ const templates = [
   },
   {
     label: '公众号广告',
-    value: `## 最后
+    value: `## 💰 最后
 
-最新的文章会发在公众号「楷鹏」，欢迎关注 💰`
+最新的文章会发在公众号「楷鹏」，欢迎关注 🤩`
   }
 ]
+
+const date = ref('')
+function makeCover() {
+  const week = getWeekOfYear(date.value ? new Date(date.value) : '')
+  copy(`经济学人 💰 第 ${week} 周`)
+}
+
+const links = [
+  {
+    label: 'Cover maker',
+    value: 'https://coverview.vercel.app/editor'
+  },
+  {
+    label: 'Mdnice',
+    value: 'https://editor.mdnice.com/'
+  }
+]
+
+function openLink(link: string) {
+  window.open(link, '_blank')
+}
 
 </script>
 
@@ -224,7 +245,6 @@ const templates = [
     </v-btn>
   </div>
   <div
-    v-else
     class="control-container"
   >
     <div class="control-panel">
@@ -297,6 +317,51 @@ const templates = [
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-menu
+        transition="scale-transition"
+        open-on-hover
+      >
+        <template #activator="{ props }">
+          <v-btn
+            variant="tonal"
+            v-bind="props"
+          >
+            快捷链接
+            <v-icon
+              icon="mdi-note-plus"
+              color="#fff"
+              size="x-large"
+              end
+            />
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in links"
+            :key="index"
+          >
+            <v-btn @click="openLink(item.value)">
+              {{ item.label }}
+            </v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <div class="w-48">
+        <v-text-field
+          v-model="date"
+          label="Cover"
+          size="small"
+          density="compact"
+          placeholder="2023-06-10"
+          hide-details
+          clearable
+          @keydown.enter="makeCover"
+        >
+          <template #append-inner>
+            {{ enterSymbol }}
+          </template>
+        </v-text-field>
+      </div>
       <!-- <v-btn
         class="button"
         variant="tonal"
