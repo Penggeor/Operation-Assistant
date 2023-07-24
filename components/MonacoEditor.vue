@@ -257,46 +257,6 @@ const wordPercentage = computed(() => {
     class="control-container"
   >
     <div class="control-panel">
-      <!-- <v-btn
-        class="button"
-        variant="tonal"
-        @click="jsonify"
-      >
-        <template #prepend>
-          <v-tooltip
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="mdi-help-circle-outline"
-              />
-            </template>
-            尝试将非法的 JSON 转换为合法的 JSON
-          </v-tooltip>
-        </template>
-        合法化
-      </v-btn>
-      <v-btn
-        class="button"
-        variant="tonal"
-        @click="pretty"
-      >
-        <template #prepend>
-          <v-tooltip
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="mdi-help-circle-outline"
-              />
-            </template>
-            美化代码
-          </v-tooltip>
-        </template>
-        美化
-      </v-btn> -->
       <v-menu
         transition="scale-transition"
         open-on-hover
@@ -366,14 +326,13 @@ const wordPercentage = computed(() => {
           >
             进度计算
             <v-icon
-              icon="mdi-note-plus"
+              icon="mdi-calculator-variant-outline"
               color="#fff"
               size="x-large"
               end
             />
           </v-btn>
         </template>
-
         <v-card>
           <v-card-text>
             <v-table>
@@ -393,7 +352,17 @@ const wordPercentage = computed(() => {
                   :key="item.paragraph"
                 >
                   <td>{{ item.paragraph }}</td>
-                  <td>{{ item.percentage }}</td>
+                  <td>
+                    {{ item.percentage }}
+                    <v-btn
+                      icon
+                      size="x-small"
+                      variant="outlined"
+                      @click="copy(item.percentage)"
+                    >
+                      copy
+                    </v-btn>
+                  </td>
                 </tr>
               </tbody>
             </v-table>
@@ -425,104 +394,7 @@ const wordPercentage = computed(() => {
           </template>
         </v-text-field>
       </div>
-      <!-- <v-btn
-        class="button"
-        variant="tonal"
-        @click="compress"
-      >
-        <template #prepend>
-          <v-tooltip
-            location="top"
-          >
-            <template #activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="mdi-help-circle-outline"
-              />
-            </template>
-            压缩代码
-          </v-tooltip>
-        </template>
-        压缩
-      </v-btn> -->
-      <!-- <div class="w-48">
-        <v-text-field
-          v-model="path"
-          label="JSON Path"
-          size="small"
-          density="compact"
-          placeholder="回车获取结果"
-          hide-details
-          clearable
-          @keydown.enter="getJson"
-        >
-          <template #append-inner>
-            {{ enterSymbol }}
-          </template>
-        </v-text-field>
-      </div> -->
     </div>
-    <!-- <div
-      v-if="timelines.length > 0"
-      class="timeline"
-    >
-      <v-timeline
-        direction="horizontal"
-        side="end"
-        density="compact"
-        line-color="hsla(0, 0%, 100%, .2)"
-      >
-        <v-timeline-item
-          v-for="timeline in timelines"
-          :key="timeline.timestamp"
-          dot-color="#6466e9"
-          density="compact"
-          size="small"
-          fill-dot
-        >
-          <template #icon>
-            <v-menu
-              transition="scale-transition"
-              open-on-hover
-            >
-              <template #activator="{ props }">
-                <v-btn
-                  variant="text"
-                  v-bind="props"
-                  @click="see(timeline.timestamp)"
-                >
-                  <v-icon
-                    v-if="timeline.timestamp !== currentTimeline"
-                    icon="mdi-backup-restore"
-                    color="#fff"
-                    size="x-large"
-                  />
-                  <v-icon
-                    v-else
-                    icon="mdi-map-marker"
-                    color="#fff"
-                    size="x-large"
-                  />
-                </v-btn>
-              </template>
-              <v-list>
-                <v-list-item v-if="timeline.timestamp !== currentTimeline">
-                  <v-btn @click="see(timeline.timestamp)">
-                    查看该版本
-                  </v-btn>
-                </v-list-item>
-                <v-list-item>
-                  <v-btn @click="restore(timeline.timestamp)">
-                    回退到该版本
-                  </v-btn>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </template>
-          {{ timeline.action }}
-        </v-timeline-item>
-      </v-timeline>
-    </div> -->
   </div>
   <v-snackbar
     v-model="snackbar.value"
