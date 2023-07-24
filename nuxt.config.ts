@@ -5,10 +5,10 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 // PWA Config
-const title = "JSON 编排器";
-const shortTitle = "JSON 编排器";
+const title = "运营工具箱";
+const shortTitle = "运营工具箱";
 const description =
-  "JSON 编排器可以实现 JSON 美化/格式化/、JSON 合法化（从 JavaScript/JS 对象中转化为 合格的 JSON 对象），页面简单干净，专注处理 JSON 格式。";
+  "运营工具箱包含各种方便好用的运营工具小需求";
 const image = "https://vuetify3nuxt3starter.behonbaker.com/starter.png";
 const url = "https://vuetify3nuxt3starter.behonbaker.com/";
 
