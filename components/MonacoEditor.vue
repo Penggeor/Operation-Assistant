@@ -207,12 +207,16 @@ function makeCover() {
 
 const links = [
   {
-    label: 'Cover maker',
+    label: '封面制作',
     value: 'https://coverview.vercel.app/editor'
   },
   {
-    label: 'Mdnice',
+    label: 'MDNICE 编辑器',
     value: 'https://editor.mdnice.com/'
+  },
+  {
+    label: 'Excalidraw',
+    value: 'https://excalidraw.com/'
   }
 ]
 
@@ -220,6 +224,11 @@ function openLink(link: string) {
   window.open(link, '_blank')
 }
 
+const dialog = ref(false)
+
+const wordPercentage = computed(() => {
+  return calculateWordPercentage(editorValue.value)
+})
 </script>
 
 <template>
@@ -346,6 +355,60 @@ function openLink(link: string) {
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-dialog
+        v-model="dialog"
+        width="auto"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            variant="tonal"
+            v-bind="props"
+          >
+            进度计算
+            <v-icon
+              icon="mdi-note-plus"
+              color="#fff"
+              size="x-large"
+              end
+            />
+          </v-btn>
+        </template>
+
+        <v-card>
+          <v-card-text>
+            <v-table>
+              <thead>
+                <tr>
+                  <th class="text-left">
+                    Paragraph
+                  </th>
+                  <th class="text-left">
+                    Progress
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item in wordPercentage"
+                  :key="item.paragraph"
+                >
+                  <td>{{ item.paragraph }}</td>
+                  <td>{{ item.percentage }}</td>
+                </tr>
+              </tbody>
+            </v-table>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              block
+              @click="dialog = false"
+            >
+              Close Dialog
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <div class="w-48">
         <v-text-field
           v-model="date"
